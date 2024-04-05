@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const dotenv = require("dotenv"); // Require dotenv
 
 const userRoutes = require('./routes/user');
 const productRoutes = require('./routes/product');
@@ -15,10 +16,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-mongoose.connect("mongodb+srv://admin:admin@zuitt-bootcamp.d5kwqc6.mongodb.net/capstone2?retryWrites=true&w=majority&appName=AtlasApp", 
-{
-	useNewUrlParser: true,
-	useUnifiedTopology: true
+mongoose.connect(process.env.DB_CONNECT, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 mongoose.connection.once( 'open', () => console.log("Now connected to MongoDB Atlas."));
